@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Прямокутний трикутник — площа і периметр</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+      text-align: left;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Прямокутний трикутник — площа і периметр</h1>
+
+  <label for="leg1">Катет 1 (см):</label>
+  <input type="number" id="leg1" min="0" step="any" placeholder="Введіть довжину першого катета" />
+
+  <label for="leg2">Катет 2 (см):</label>
+  <input type="number" id="leg2" min="0" step="any" placeholder="Введіть довжину другого катета" />
+
+  <button onclick="calculate()">Обчислити</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    function calculate() {
+      const leg1 = parseFloat(document.getElementById('leg1').value);
+      const leg2 = parseFloat(document.getElementById('leg2').value);
+      const result = document.getElementById('result');
+
+      if (isNaN(leg1) || leg1 <= 0 || isNaN(leg2) || leg2 <= 0) {
+        result.textContent = 'Будь ласка, введіть правильні позитивні числа для обох катетів.';
+        result.style.color = 'red';
+        return;
+      }
+
+      const hypotenuse = Math.sqrt(leg1 * leg1 + leg2 * leg2);
+      const area = (leg1 * leg2) / 2;
+      const perimeter = leg1 + leg2 + hypotenuse;
+
+      result.style.color = 'green';
+      result.innerHTML = `
+        Площа прямокутного трикутника: <strong>${area.toFixed(2)} см²</strong><br>
+        Периметр прямокутного трикутника: <strong>${perimeter.toFixed(2)} см</strong><br>
+        Гіпотенуза: <strong>${hypotenuse.toFixed(2)} см</strong>
+      `;
+    }
+  </script>
+
+</body>
+</html>

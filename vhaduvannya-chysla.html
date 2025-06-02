@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Вгадування числа</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #2980b9;
+      border: none;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2471a3;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #27ae60;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #1e8449;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Вгадування числа</h1>
+  <p>Загадайте число від 1 до 100 і спробуйте вгадати його.</p>
+
+  <input type="number" id="guessInput" min="1" max="100" placeholder="Введіть число" />
+  <button onclick="checkGuess()">Перевірити</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      const guess = Number(document.getElementById('guessInput').value);
+      const resultDiv = document.getElementById('result');
+      attempts++;
+
+      if (!guess || guess < 1 || guess > 100) {
+        resultDiv.textContent = 'Введіть число від 1 до 100!';
+        return;
+      }
+
+      if (guess === secretNumber) {
+        resultDiv.textContent = `Вітаємо! Ви вгадали число за ${attempts} спроб(и)! 🎉`;
+      } else if (guess < secretNumber) {
+        resultDiv.textContent = 'Загадане число більше.';
+      } else {
+        resultDiv.textContent = 'Загадане число менше.';
+      }
+    }
+  </script>
+
+</body>
+</html>

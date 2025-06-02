@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Цифри в числі</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e8449;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #27ae60;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #1e8449;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Цифри в числі</h1>
+
+  <label for="number">Введіть ціле число:</label>
+  <input type="number" id="number" placeholder="Наприклад, 12345" />
+
+  <button onclick="showDigits()">Показати цифри</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    function showDigits() {
+      const numInput = document.getElementById('number').value.trim();
+      const result = document.getElementById('result');
+
+      if (!numInput || isNaN(numInput)) {
+        result.textContent = 'Будь ласка, введіть коректне ціле число.';
+        return;
+      }
+
+      // Видалимо знак мінус, якщо є, для показу цифр
+      const numStr = numInput.startsWith('-') ? numInput.slice(1) : numInput;
+
+      const digits = numStr.split('');
+      let output = 'Цифри в числі:\n';
+      digits.forEach((digit, index) => {
+        output += `Цифра ${index + 1}: ${digit}\n`;
+      });
+
+      result.textContent = output;
+    }
+  </script>
+
+</body>
+</html>

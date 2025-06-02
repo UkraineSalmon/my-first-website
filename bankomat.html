@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Банкомат</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 400px;
+      margin: auto;
+      background-color: #fff;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1.1rem;
+      background-color: #3498db;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 1.5rem;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Банкомат</h1>
+
+  <label for="amount">Введіть суму для зняття (грн):</label>
+  <input type="number" id="amount" min="1" placeholder="Наприклад, 1000" />
+
+  <button onclick="withdraw()">Зняти гроші</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    const balance = 5000; // Поточний баланс користувача
+
+    function withdraw() {
+      const input = document.getElementById('amount');
+      const result = document.getElementById('result');
+      const amount = Number(input.value);
+
+      if (!amount || amount <= 0) {
+        result.textContent = 'Введіть правильну суму для зняття.';
+        result.style.color = 'red';
+        return;
+      }
+
+      if (amount > balance) {
+        result.textContent = 'Недостатньо коштів на рахунку.';
+        result.style.color = 'red';
+      } else {
+        result.textContent = `Успішно знято ${amount} грн. Залишок на рахунку: ${balance - amount} грн.`;
+        result.style.color = 'green';
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Вгадування персонажа</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: auto;
+      padding: 2rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    select, button {
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Вгадування персонажа</h1>
+
+  <p>Оберіть персонажа та перевірте, чи ви вгадали.</p>
+
+  <select id="character-select">
+    <option value="">-- Оберіть персонажа --</option>
+    <option value="harry">Гаррі Поттер</option>
+    <option value="frodo">Фродо Беґінз</option>
+    <option value="lara">Лара Крофт</option>
+    <option value="mario">Маріо</option>
+    <option value="minecraft">Стіва (Minecraft)</option>
+  </select>
+
+  <button onclick="guess()">Перевірити</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    const characters = ['harry', 'frodo', 'lara', 'mario', 'minecraft'];
+
+    // Комп’ютер загадує випадкового персонажа
+    const secretCharacter = characters[Math.floor(Math.random() * characters.length)];
+
+    function guess() {
+      const select = document.getElementById('character-select');
+      const result = document.getElementById('result');
+      const userChoice = select.value;
+
+      if (!userChoice) {
+        result.textContent = "Будь ласка, оберіть персонажа.";
+        result.style.color = 'red';
+        return;
+      }
+
+      if (userChoice === secretCharacter) {
+        result.textContent = "Вітаємо! Ви вгадали персонажа!";
+        result.style.color = 'green';
+      } else {
+        result.textContent = `Ні, це не ${select.options[select.selectedIndex].text}. Спробуйте ще раз!`;
+        result.style.color = 'red';
+      }
+    }
+  </script>
+
+</body>
+</html>

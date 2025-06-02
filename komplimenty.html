@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Компліменти</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background-color: #d68910;
+    }
+    #compliment {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2.5rem;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #27ae60;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #1e8449;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Компліменти</h1>
+
+  <button onclick="showCompliment()">Отримати комплімент</button>
+
+  <div id="compliment"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    const compliments = [
+      "Ти виглядаєш чудово сьогодні!",
+      "У тебе дуже тепла усмішка.",
+      "Твоя доброта надихає інших.",
+      "Ти неймовірно розумний(а)!",
+      "Твоя енергія заряджає позитивом.",
+      "Ти справжній друг і підтримка.",
+      "Твої ідеї завжди цікаві та креативні.",
+      "Ти заслуговуєш найкращого!",
+      "Твоя працьовитість вражає.",
+      "Ти робиш цей світ кращим."
+    ];
+
+    function showCompliment() {
+      const index = Math.floor(Math.random() * compliments.length);
+      document.getElementById('compliment').textContent = compliments[index];
+    }
+  </script>
+
+</body>
+</html>

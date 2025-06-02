@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Степінь та факторіал</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+      text-align: left;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Степінь та факторіал</h1>
+
+  <label for="base">Основа степеня (число):</label>
+  <input type="number" id="base" step="any" placeholder="Введіть основу" />
+
+  <label for="exponent">Показник степеня (ціле число):</label>
+  <input type="number" id="exponent" step="1" placeholder="Введіть показник" />
+
+  <label for="factorial">Обчислити факторіал числа:</label>
+  <input type="number" id="factorial" step="1" placeholder="Введіть число" />
+
+  <button onclick="calculate()">Обчислити</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    function factorial(n) {
+      if (n < 0) return NaN;
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function calculate() {
+      const base = parseFloat(document.getElementById('base').value);
+      const exponent = parseInt(document.getElementById('exponent').value, 10);
+      const factInput = parseInt(document.getElementById('factorial').value, 10);
+      const result = document.getElementById('result');
+
+      if (isNaN(base)) {
+        result.innerHTML = `<span style="color:red">Введіть правильне число для основи степеня.</span>`;
+        return;
+      }
+      if (isNaN(exponent)) {
+        result.innerHTML = `<span style="color:red">Введіть ціле число для показника степеня.</span>`;
+        return;
+      }
+      if (isNaN(factInput) || factInput < 0) {
+        result.innerHTML = `<span style="color:red">Введіть невід’ємне ціле число для факторіала.</span>`;
+        return;
+      }
+
+      const power = Math.pow(base, exponent);
+      const fact = factorial(factInput);
+
+      result.innerHTML = `
+        ${base} у степені ${exponent} = <strong>${power.toFixed(4)}</strong><br>
+        Факторіал числа ${factInput} = <strong>${fact}</strong>
+      `;
+    }
+  </script>
+
+</body>
+</html>

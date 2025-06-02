@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Оцінки</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      min-height: 2rem;
+      text-align: left;
+    }
+    .back-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Оцінки</h1>
+
+  <label for="score">Введіть оцінку (0-100):</label>
+  <input type="number" id="score" min="0" max="100" placeholder="Наприклад, 78" />
+
+  <button onclick="evaluateScore()">Оцінити</button>
+
+  <div id="result"></div>
+
+  <a href="index.html" class="back-button">Назад до головної</a>
+
+  <script>
+    function evaluateScore() {
+      const score = parseInt(document.getElementById('score').value, 10);
+      const result = document.getElementById('result');
+
+      if (isNaN(score) || score < 0 || score > 100) {
+        result.innerHTML = `<span style="color:red">Введіть правильну оцінку від 0 до 100.</span>`;
+        return;
+      }
+
+      let grade;
+      if (score >= 90) grade = "Відмінно (5)";
+      else if (score >= 75) grade = "Добре (4)";
+      else if (score >= 60) grade = "Задовільно (3)";
+      else grade = "Незадовільно (2)";
+
+      result.innerHTML = `Оцінка: <strong>${grade}</strong>`;
+    }
+  </script>
+
+</body>
+</html>
