@@ -8,7 +8,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
    html {
-    font-size: 150%; 
+    font-size: 150%;
    }
    body {
     font-family: 'Times New Roman', serif;
@@ -23,23 +23,24 @@
     background-color: rgba(240, 255, 240, 0.6);
    }
   </style>
+  <script>
+   window.onload = function() {
+     let age = prompt("Скільки тобі років?");
+     if (age && parseInt(age) < 10) {
+       alert("Доступ заборонено!");
+       window.location.href = "dostup-zaboroneno.html";
+     } else if (age) {
+       alert("Ласкаво просимо!");
+     }
+   };
+  </script>
  </head>
  <body class="relative min-h-screen bg-green-900">
-  <script>
-   let age = prompt("Скільки тобі років?");
-   if (age < 10) {
-     alert("Доступ заборонено!");
-     window.location.href = "dostup-zaboroneno.html";
-   } else {
-     alert("Ласкаво просимо!");
-   }
-  </script>
-
   <img src="https://storage.googleapis.com/a1aa/image/05924f37-7425-450c-18d2-6e3f0520d9da.jpg" alt="фон" class="fixed inset-0 w-full h-full object-cover -z-10"/>
   <div class="fixed inset-0 bg-overlay -z-5"></div>
 
   <header class="bg-green-900 bg-opacity-90 text-white text-center py-2 font-italianno text-xl select-none">
-   Перший сайт Якова
+   Сайт Якова
   </header>
 
   <main class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 bg-white bg-opacity-70 backdrop-blur-sm">
