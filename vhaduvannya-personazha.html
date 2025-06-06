@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Вгадування персонажа</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -42,6 +41,14 @@
       background-color: #2980b9;
     }
 
+    #description {
+      margin-top: 1.5rem;
+      font-style: italic;
+      font-weight: 600;
+      min-height: 3rem;
+      color: #555;
+    }
+
     #result {
       margin-top: 1.5rem;
       font-weight: bold;
@@ -67,7 +74,9 @@
 
   <h1>Вгадування персонажа</h1>
 
-  <p>Оберіть персонажа та перевірте, чи ви вгадали.</p>
+  <p>Прочитайте опис персонажа та оберіть, кого він описує.</p>
+
+  <div id="description">Завантаження опису...</div>
 
   <select id="character-select">
     <option value="">-- Оберіть персонажа --</option>
@@ -85,10 +94,44 @@
   <a href="index.html" class="back-button">Назад до головної</a>
 
   <script>
-    const characters = ['harry', 'frodo', 'lara', 'mario', 'minecraft'];
+    const characters = {
+      harry: [
+        "Хлопчик-чаpівник з знаменитою блискавкою на лобі.",
+        "Відомий своїм хоробрістю і вірністю друзям.",
+        "Учень школи чарівництва Хогвартс."
+      ],
+      frodo: [
+        "Маленький гобіт, який ніс важливу місію.",
+        "Персонаж, який подолав багато небезпек, щоб знищити кільце.",
+        "Друг Семвайза Гемджі."
+      ],
+      lara: [
+        "Відома шукачка пригод і археолог.",
+        "Вміє вправно поводитися з пістолетами і лазити по скелях.",
+        "Головна героїня серії відеоігор про Tomb Raider."
+      ],
+      mario: [
+        "Веселий сантехнік у червоній кепці.",
+        "Врятував принцесу Піч від Боузера багато разів.",
+        "Герой відомої серії ігор Nintendo."
+      ],
+      minecraft: [
+        "Блоковий персонаж з піксельного світу.",
+        "Гравець, який досліджує, будує і виживає у відкритому світі.",
+        "Відомий як Стіва."
+      ]
+    };
 
-    // Комп’ютер загадує випадкового персонажа
-    const secretCharacter = characters[Math.floor(Math.random() * characters.length)];
+    // Обираємо випадкового персонажа
+    const characterKeys = Object.keys(characters);
+    const secretCharacter = characterKeys[Math.floor(Math.random() * characterKeys.length)];
+
+    // Обираємо випадковий опис для цього персонажа
+    const descriptions = characters[secretCharacter];
+    const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
+
+    // Виводимо опис
+    document.getElementById('description').textContent = randomDescription;
 
     function guess() {
       const select = document.getElementById('character-select');
