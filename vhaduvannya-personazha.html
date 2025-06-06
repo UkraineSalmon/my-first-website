@@ -45,7 +45,7 @@
       margin-top: 1.5rem;
       font-style: italic;
       font-weight: 600;
-      min-height: 4rem;
+      min-height: 3rem;
       color: #555;
     }
 
@@ -69,13 +69,19 @@
       background-color: #2980b9;
     }
 
-    #restart-btn {
+    .restart-button {
+      background-color: #e74c3c;
       margin-top: 1rem;
-      background-color: #2ecc71;
     }
 
-    #restart-btn:hover {
-      background-color: #27ae60;
+    .restart-button:hover {
+      background-color: #c0392b;
+    }
+
+    .hint {
+      color: #f39c12;
+      font-weight: bold;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -86,6 +92,7 @@
   <p>Прочитайте опис персонажа та оберіть, кого він описує.</p>
 
   <div id="description">Завантаження опису...</div>
+  <div id="hints"></div>
 
   <select id="character-select">
     <option value="">-- Оберіть персонажа --</option>
@@ -93,63 +100,79 @@
     <option value="frodo">Фродо Беґінз</option>
     <option value="lara">Лара Крофт</option>
     <option value="mario">Маріо</option>
-    <option value="minecraft">Стіва (Minecraft)</option>
+    <option value="minecraft">Стів (Minecraft)</option>
   </select>
 
   <button onclick="guess()">Перевірити</button>
-  <button id="restart-btn" onclick="restartGame()">Почати заново</button>
+  <button class="restart-button" onclick="restartGame()" style="display:none;">Почати гру знову</button>
 
   <div id="result"></div>
 
   <a href="index.html" class="back-button">Назад до головної</a>
 
   <script>
-    const characters = {
-      harry: [
-        "Хлопчик-чаpівник з знаменитою блискавкою на лобі.",
-        "Учень школи чарівництва Хогвартс.",
-        "Друг Герміони та Рона, бореться з Волдемортом."
-      ],
-      frodo: [
-        "Маленький гобіт, який ніс важливу місію.",
-        "Володар Кільця, що прямує до Мордорa.",
-        "Його супроводжує Сем, його найкращий друг."
-      ],
-      lara: [
-        "Шукачка пригод і археолог.",
-        "Уміє стріляти з двох пістолетів одночасно.",
-        "Героїня серії Tomb Raider."
-      ],
-      mario: [
-        "Веселий сантехнік у червоній кепці.",
-        "Врятував принцесу Піч від Боузера.",
-        "Стрибає по платформах і збирає монети."
-      ],
-      minecraft: [
-        "Блоковий герой з піксельного світу.",
-        "Може рубати дерева і копати шахти.",
-        "Його світ складається з кубиків, як LEGO."
-      ]
-    };
+    let secretCharacter;
+    let descriptions;
+    let currentHintIndex = 0;
+    let gameFinished = false;
 
-    let secretCharacter = "";
-    let descriptionIndex = 0;
-    let descriptions = [];
+    function initGame() {
+      const characters = {
+        harry: [
+          "Хлопчик-чаpівник з знаменитою блискавкою на лобі.",
+          "Відомий своїм хоробрістю і вірністю друзям.",
+          "Учень школи чарівництва Хогвартс."
+        ],
+        frodo: [
+          "Маленький гобіт, який ніс важливу місію.",
+          "Персонаж, який подолав багато небезпек, щоб знищити кільце.",
+          "Друг Семвайза Гемджі."
+        ],
+        lara: [
+          "Відома шукачка пригод і археолог.",
+          "Вміє вправно поводитися з пістолетами і лазити по скелях.",
+          "Головна героїня серії відеоігор про Tomb Raider."
+        ],
+        mario: [
+          "Веселий сантехнік у червоній кепці.",
+          "Врятував принцесу Піч від Боузера багато разів.",
+          "Герой відомої серії ігор Nintendo."
+        ],
+        minecraft: [
+          "Блоковий персонаж з піксельного світу.",
+          "Гравець, який досліджує, будує і виживає у відкритому світі.",
+          "Відомий як Стів."
+        ]
+      };
 
-    function startGame() {
+      // Обираємо випадкового персонажа
       const characterKeys = Object.keys(characters);
       secretCharacter = characterKeys[Math.floor(Math.random() * characterKeys.length)];
       descriptions = characters[secretCharacter];
-      descriptionIndex = 0;
+      currentHintIndex = 0;
+      gameFinished = false;
 
-      // Показуємо першу підказку
-      document.getElementById('description').textContent = descriptions[descriptionIndex];
-      document.getElementById('result').textContent = "";
-      document.getElementById('result').style.color = "";
-      document.getElementById('character-select').value = "";
+      // Виводимо перший опис
+      document.getElementById('description').textContent = descriptions[currentHintIndex];
+      document.getElementById('hints').innerHTML = '';
+      document.getElementById('result').textContent = '';
+      document.getElementById('character-select').value = '';
+      document.querySelector('.restart-button').style.display = 'none';
+    }
+
+    function showNextHint() {
+      currentHintIndex++;
+      if (currentHintIndex < descriptions.length) {
+        const hintElement = document.createElement('div');
+        hintElement.className = 'hint';
+        hintElement.textContent = descriptions[currentHintIndex];
+        document.getElementById('hints').appendChild(hintElement);
+      }
     }
 
     function guess() {
+      if (gameFinished) return;
+
       const select = document.getElementById('character-select');
       const result = document.getElementById('result');
       const userChoice = select.value;
@@ -163,36 +186,27 @@
       if (userChoice === secretCharacter) {
         result.textContent = "Вітаємо! Ви вгадали персонажа!";
         result.style.color = 'green';
+        gameFinished = true;
+        document.querySelector('.restart-button').style.display = 'inline-block';
       } else {
-        if (descriptionIndex < descriptions.length - 1) {
-          descriptionIndex++;
-          document.getElementById('description').textContent = descriptions[descriptionIndex];
-          result.textContent = `Ні, це не ${select.options[select.selectedIndex].text}. Ось ще одна підказка.`;
-          result.style.color = 'orange';
-        } else {
-          result.textContent = `На жаль, це був ${getCharacterName(secretCharacter)}.`;
-          result.style.color = 'red';
+        result.textContent = `Ні, це не ${select.options[select.selectedIndex].text}. Спробуйте ще раз!`;
+        result.style.color = 'red';
+        showNextHint();
+        
+        if (currentHintIndex >= descriptions.length - 1) {
+          result.textContent += ` Це був ${document.querySelector(`option[value="${secretCharacter}"]`).text}.`;
+          gameFinished = true;
+          document.querySelector('.restart-button').style.display = 'inline-block';
         }
       }
     }
 
     function restartGame() {
-      startGame();
+      initGame();
     }
 
-    function getCharacterName(key) {
-      const map = {
-        harry: "Гаррі Поттер",
-        frodo: "Фродо Беґінз",
-        lara: "Лара Крофт",
-        mario: "Маріо",
-        minecraft: "Стіва (Minecraft)"
-      };
-      return map[key];
-    }
-
-    // Старт гри при завантаженні
-    startGame();
+    // Ініціалізуємо гру при завантаженні сторінки
+    window.onload = initGame;
   </script>
 
 </body>
